@@ -1,3 +1,9 @@
+/**
+ * This class for user database
+ * @author Yuan Cui
+ * @version 1.0
+ */
+
 package dao;
 
 import entity.Vehicle;

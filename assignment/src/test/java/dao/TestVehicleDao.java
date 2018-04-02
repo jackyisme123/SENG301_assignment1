@@ -1,3 +1,9 @@
+/**
+ * This class for user database
+ * @author Yuan Cui
+ * @version 1.0
+ */
+
 package dao;
 
 import entity.Vehicle;
@@ -17,18 +23,18 @@ public class TestVehicleDao {
     VehicleDao vehicleDao = null;
     Connection connection = null;
 
-    @Before
+    @Before //database connection
     public void before() throws SQLException {
         String url = "jdbc:sqlite:./assignment.sqlite";
         connection = DriverManager.getConnection(url);
     }
 
-    @After
+    @After //connection close
     public void after() throws SQLException {
         connection.close();
     }
 
-    @Test
+    @Test // test the correctness of plate numbers fetching from database
     public void testFetchPlateNumbers() throws SQLException {
         ResultSet resultSet1 = vehicleDao.fetchPlateNumbers(connection);
         HashSet<String> plateNumbers = new HashSet<>();
@@ -43,7 +49,7 @@ public class TestVehicleDao {
         assertEquals(plateNumbers, fetchPlateNumbers);
     }
 
-    @Test
+    @Test //test submission valid or not
     public void testCheckSubmission(){
         Vehicle vehicle1 = vehicleDao.checkSubmission("kyre.irving@gmail.com","MC", "KI1111", "Toyota", "LandCruiser", "diesel", "11/11/2016");
         Vehicle vehicle2 = vehicleDao.checkSubmission("","MC", "KI1111", "Toyota", "LandCruiser", "diesel", "11/11/2016");
@@ -77,7 +83,7 @@ public class TestVehicleDao {
         assertNull(vehicle15);
     }
 
-    @Test
+    @Test //check plate number occupied or not
     public void testCheckPlateNumber() throws SQLException {
         String plateNumber1 = "JH1313";
         String plateNumber2 = "CP3333";
@@ -94,7 +100,7 @@ public class TestVehicleDao {
         assertTrue(result4);
     }
 
-    @Test
+    @Test //check result of insert vehicle
     public void testInsertVehicleInfo(){
         Vehicle vehicle1 = new Vehicle("kyre.irving@gmail.com","MC", "KI1111", "Toyota", "LandCruiser", "diesel", "11/11/2016");
         boolean result1 = vehicleDao.insertVehicleInfo(vehicle1, connection, false);
@@ -104,7 +110,7 @@ public class TestVehicleDao {
     }
 
 
-    @Test
+    @Test //check result of retrieve vehicle registration by owner id and plate number
     public void testRetrieveVehicleInfoByOwnerIdAndPlateNumber() throws SQLException {
         String ownerId1 = "harden.james@gmail.com";
         String ownerId2 = "chris.paul@gmail.com";
@@ -141,7 +147,7 @@ public class TestVehicleDao {
         assertFalse(resultSet6.next());
     }
 
-    @Test
+    @Test //check owner and plate number existing
     public void testCheckOwnerExisted() throws SQLException {
         Vehicle vehicle1 = new Vehicle("ycu20@uclive.ac.nz","MC", "KI1111", "Toyota", "LandCruiser", "diesel", "11/11/2016");
         Vehicle vehicle2 = new Vehicle("chris.paul@gmail.com","MC", "KI1111", "Toyota", "LandCruiser", "diesel", "11/11/2016");
@@ -154,7 +160,7 @@ public class TestVehicleDao {
         assertTrue(checkOwnerExisted3);
     }
 
-    @Test
+    @Test //check result of update vehicle registration
     public void testUpdateVehicleInfo(){
         Vehicle vehicle = new Vehicle("chris.paul@gmail.com","MC", "CP3333", "Toyota", "LandCruiser", "diesel", "11/11/2016");
         boolean result1 = vehicleDao.updateVehicleInfo(vehicle, connection, false);
@@ -163,7 +169,7 @@ public class TestVehicleDao {
         assertTrue(result2);
     }
 
-    @Test
+    @Test //check result of remove vehicle registration
     public void testRemoveVehicleRegistration(){
         boolean result1 = vehicleDao.removeVehicleRegistration(connection, "JH1313", "harden.james@gmail.com", false);
         boolean result2 = vehicleDao.removeVehicleRegistration(connection, "JH1313", "harden.james@gmail.com", true);

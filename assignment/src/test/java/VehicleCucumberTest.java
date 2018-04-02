@@ -1,3 +1,9 @@
+/**
+ * This class for user database
+ * @author Yuan Cui
+ * @version 1.0
+ */
+
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;

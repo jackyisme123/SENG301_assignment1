@@ -1,3 +1,9 @@
+/**
+ * This class for user database
+ * @author Yuan Cui
+ * @version 1.0
+ */
+
 package dao;
 
 import entity.User;
@@ -18,18 +24,18 @@ public class TestUserDao {
     UserDao userDao = null;
     Connection connection = null;
 
-    @Before
+    @Before //database connection
     public void before() throws SQLException {
         String url = "jdbc:sqlite:./assignment.sqlite";
         connection = DriverManager.getConnection(url);
     }
 
-    @After
+    @After //connection close
     public void after() throws SQLException {
         connection.close();
     }
 
-    @Test
+    @Test //check fetch result is same as original input
     public void testFetchOwnerIds() throws SQLException {
         HashSet<String> ownerIds = new HashSet<>();
         HashSet<String> fetchIds = new HashSet<>();
@@ -45,7 +51,7 @@ public class TestUserDao {
         assertEquals(ownerIds, fetchIds);
     }
 
-    @Test
+    @Test //check submission valid or not
     public void testCheckSubmission(){
         User user1 = userDao.checkSubmission("Yuan", "Cui", "ycu20@uclive.ac.nz", "12345" );
         User user2 = userDao.checkSubmission("", "Cui", "ycu20@uclive.ac.nz", "12345" );
@@ -65,7 +71,7 @@ public class TestUserDao {
         assertNull(user8);
     }
 
-    @Test
+    @Test // check owner id existing
     public void testCheckOwnerId() throws SQLException {
         ResultSet resultSet = userDao.fetchOwnerIds(connection);
         String owner_id1 = "harden.james@gmail.com";
@@ -89,7 +95,7 @@ public class TestUserDao {
         assertTrue(resutl5);
     }
 
-    @Test
+    @Test //check insert user result
     public void checkInsertUserInfo(){
         User insert_user = new User("Yuan", "Cui", "ycu20@uclive.ac.nz", "12345");
         boolean result2 = userDao.insertUserInfo(insert_user, connection, false);
@@ -98,7 +104,7 @@ public class TestUserDao {
         assertFalse(result2);
     }
 
-    @Test
+    @Test //check the correctness of retrieve result
     public void checkRetrieveInfoByOwnerId() throws SQLException {
         String owner_id1 = "harden.james@gmail.com";
         String owner_id2 = "kyre.irving@gmail.com";

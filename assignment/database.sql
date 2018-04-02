@@ -1,3 +1,9 @@
+/**
+ * This class for user database
+ * @author Yuan Cui
+ * @version 1.0
+ */
+
 DROP TABLE IF EXISTS user;
 CREATE TABLE IF NOT EXISTS user (
   first_name text,

@@ -1,7 +1,12 @@
+/**
+ * This class for user database
+ * @author Yuan Cui
+ * @version 1.0
+ */
+
 package steps;
 
 import dao.UserDao;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +19,6 @@ import cucumber.api.java.en.When;
 import dao.VehicleDao;
 import entity.User;
 import entity.Vehicle;
-import org.junit.Assert;
 
 import static org.junit.Assert.*;
 
